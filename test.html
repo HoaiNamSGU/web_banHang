@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .page-title {
+            margin: 0 0 10px 0;
+            font-size: 2em;
+
+        }
+
+        .page-title h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ff9966;
+            border-bottom: 1px solid #c0bcb7;
+            padding-bottom: 7px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .row {
+            max-width: 100%;
+        }
+
+        .box-checkout {
+            margin-bottom: 20px;
+        }
+
+        .box-checkout .box-title {
+            background: #ff9966;
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+            font-weight: 700;
+            padding: 17px 15px 11px;
+        }
+
+        .box-checkout .box-content {
+            padding: 15px 20px;
+            border: 1px solid #c2c2c2;
+            border-top: 0;
+        }
+
+        .input-box {
+            margin-bottom: 9px;
+        }
+
+        .input-text {
+            width: 100%;
+            min-height: 40px;
+            font-size: 15px;
+            border-radius: 2px;
+            border: 1px solid #cccccc;
+            padding: 10px;
+            resize: vertical;
+        }
+
+        .data-table {
+            width: 100%;
+            margin-bottom: 1rem;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            border: 0;
+            font-size: 14px;
+            text-transform: none;
+        }
+
+        .data-table tfoot {
+            font-weight: 700;
+        }
+
+        .data-table tfoot td {
+            padding: 10px 25px;
+            color: #0000007d;
+            text-align: left;
+            font-size: 16px;
+            border: 0;
+        }
+
+        .data-table .no-data td {
+            padding: 25px 25px;
+            font-size: 15px;
+            font-weight: normal;
+            line-height: 18px;
+            font-family: "Roboto", sans-serif;
+            color: #2d2d2d;
+            border-bottom: 1px solid #CCCCCC;
+            border-top: 1px solid #eceeef;
+            text-transform: uppercase;
+        }
+
+        .order-confi {
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .order-confi button {
+            max-width: 300px;
+            height: 60px;
+            font-size: 20px;
+            color: #fff;
+            background-color: #ff9966;
+            border-radius: 7px;
+            border: 0;
+            line-height: 54px;
+            font-family: "block-pro", "Helvetica Neue", Verdana, Arial, sans-serif;
+            cursor: pointer;
+        }
+
+
+    </style>
+</head>
+<body>
+    <form>
+        <div>
+            <div class="page-title">
+                <h2>THANH TOÁN</h2>
+            </div>
+            <div style="padding: 23px;">
+                <div class="row">
+                    <div class="box-checkout">
+                        <h3 class="box-title">
+                            GHI CHÚ THÊM
+                        </h3>
+                        <div class="box-content" style="padding: 20px 67px;">
+                            <label for="accress-order">Địa chỉ</label>
+                            <span id="error" class="error"></span>
+                            <input type="text" name="accress_order" id="accress_order"
+                                placeholder="Vui lòng nhập dịa chỉ" class="input-text">
+
+                            <label>Ghi chú</label>
+                            <div class="input-box">
+                                <textarea name="order_comment" id="ghi_chu_deal" placeholder="Vui lòng nhập ghi chú"
+                                    class="input-text"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-checkout">
+                        <h3 class="box-title">
+                            XEM LẠI ĐƠN HÀNG
+                        </h3>
+                        <div class="box-content" style="padding: 0;">
+                            <table class="data-table" id="">
+                                <colgroup>
+                                    <col>
+                                    <col width="1">
+                                    <col width="1">
+                                    <col width="1">
+                                    <col width="1">
+                                </colgroup>
+                                <thead style="background: #f0ebe5; border: none; height: 60px;">
+                                    <tr>
+                                        <th rowspan="1" style="width: 40%;">Tên sản phẩm</th>
+                                        <th colspan="1" style="width: 25%;">Đơn giá</th>
+                                        <th rowspan="1" style="width: 10%;">Số lượng</th>
+                                        <th colspan="1" style="width: 25%;">Thành tiền</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <td class="a-right" colspan="3">Tạm tính</td>
+                                        <td class="a-right" id="thanh_toan_tmp_cal_money" colspan="1">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style class="a-right" colspan="1">Phí vận chuyển</td>
+                                        <td style class="a-right" colspan="1">Hình thức vận chuyển</td>
+                                        <td colspan="1">
+                                            <select name="choose" id="hinh_thuc_van_chuyen"
+                                                class="choose" onchange="van_chuyen();tong_cong();">
+                                                <option value=1>Thường</option>
+                                                <option value=2>Nhanh</option>
+                                                <option value=3>Hỏa tốc</option>
+                                            </select>
+                                        </td>
+                                        <td colspan="1" id="phi_van_chuyen">10000 VND
+                                        </td>
+                                    </tr>
+                                    <tr class="grand-total">
+                                        <td class="a-left" colspan="3"
+                                            style="font-size: 18px; color: black;">Tổng cộng</td>
+                                        <td class="a-right" id="tong_cong">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                                <tfoot class="no-data" id="no-data">
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="order-confi">
+                        <button type="button" onclick="check_final()">XÁC NHẬN ĐƠN HÀNG</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
